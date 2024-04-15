@@ -10,6 +10,9 @@ python = "^3.11"
 sqlalchemy = "^2.0.29"
 aiosqlite = "^0.20.0"
 greenlet = "^3.0.3"
+faker = "^24.9.0"
+alembic = "^1.13.1"
+psycopg2-binary = "^2.9.9"
 
 
 [build-system]

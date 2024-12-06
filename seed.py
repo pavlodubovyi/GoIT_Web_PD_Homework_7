@@ -6,20 +6,18 @@ from sqlalchemy.exc import SQLAlchemyError
 import conf.db_connection
 from conf.models import Teacher, Student, Subject, Group, Grade
 
-fake = Faker('uk-UA')
+fake = Faker('en-US')
 
 
 def insert_teachers():
     for _ in range(3):
-        teacher = Teacher(
-            fullname=fake.name()
-        )
+        teacher = Teacher(fullname=fake.name())
         conf.db_connection.session.add(teacher)
 
 
 def insert_groups():
     for _ in range(3):
-        group = Group(name=fake.word())
+        group = Group(name=fake.country())
         conf.db_connection.session.add(group)
 
 
@@ -28,10 +26,7 @@ def insert_students():
 
     for _ in range(30):
         group = random.choice(groups)
-        student = Student(
-            fullname=fake.name(),
-            group_id=group.id
-        )
+        student = Student(fullname=fake.name(), group_id=group.id)
         conf.db_connection.session.add(student)
 
 
@@ -40,10 +35,7 @@ def insert_subjects():
 
     for _ in range(5):
         teacher = random.choice(teachers)
-        subject = Subject(
-            name=fake.word(),
-            teacher_id=teacher.id
-        )
+        subject = Subject(name=fake.job(), teacher_id=teacher.id)
         conf.db_connection.session.add(subject)
 
 

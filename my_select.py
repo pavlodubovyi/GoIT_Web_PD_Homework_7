@@ -4,8 +4,8 @@ from conf.db_connection import session
 from conf.models import Grade, Teacher, Student, Group, Subject
 
 
+# Find the top 5 students with the highest average grades across all subjects.
 def select_01():
-    # Знайти 5 студентів із найбільшим середнім балом з усіх предметів.
     """
     SELECT
         students.id,
@@ -30,8 +30,8 @@ def select_01():
     return result
 
 
-def select_02(subject_id=1):  # сюди аргументом передати id предмету
-    # Знайти студента із найвищим середнім балом з певного предмета.
+# Find the student with the highest average grade in a specific subject.
+def select_02(subject_id=1):  # pass the desired subject id number as argument here
     """
     SELECT
         students.id,
@@ -57,8 +57,8 @@ def select_02(subject_id=1):  # сюди аргументом передати i
     return result
 
 
-def select_03(subject_id=1):  # сюди аргументом передати id предмету
-    # Знайти середній бал у групах з певного предмета.
+# Find the average grade in groups for a specific subject.
+def select_03(subject_id=1):  # pass the desired subject id number as argument here
     """
     SELECT
         groups.id,
@@ -86,8 +86,8 @@ def select_03(subject_id=1):  # сюди аргументом передати i
     return result
 
 
+# Find the average grade across the entire course (for the entire grades table).
 def select_04():
-    # Знайти середній бал на потоці (по всій таблиці оцінок)
     """
     SELECT
         ROUND(AVG(grades.grade), 2) AS average_grade
@@ -101,8 +101,8 @@ def select_04():
     return result
 
 
-def select_05(teacher_id=2):  # сюди аргументом передати id предмету
-    #  Знайти які курси читає певний викладач.
+# Find the courses taught by a specific teacher.
+def select_05(teacher_id=2):  # pass the desired teacher id number as argument here
     """
     SELECT
         subjects.id,
@@ -122,8 +122,8 @@ def select_05(teacher_id=2):  # сюди аргументом передати i
     return result
 
 
-def select_06(group_id=1):  # сюди аргументом передати id групи
-    # Знайти список студентів у певній групі.
+# Find the list of students in a specific group.
+def select_06(group_id=1):  # pass the desired group id number as argument here
     """
     SELECT
         students.id,
@@ -143,8 +143,8 @@ def select_06(group_id=1):  # сюди аргументом передати id 
     return result
 
 
-def select_07(group_id=1, subject_id=1):  # сюди аргументом передати id групи та id предмету
-    # Знайти оцінки студентів у окремій групі з певного предмета.
+# Find the grades of students in a specific group for a particular subject.
+def select_07(group_id=1, subject_id=1):  # pass the desired group and subject ids as arguments here
     """
     SELECT
         groups.id,
@@ -175,8 +175,8 @@ def select_07(group_id=1, subject_id=1):  # сюди аргументом пер
     return result
 
 
-def select_08(teacher_id=3):  # сюди аргументом передати id викладача
-    # Знайти середній бал, який ставить певний викладач зі своїх предметів.
+# Find the average grade given by a specific teacher across their subjects.
+def select_08(teacher_id=3):  # pass the desired teacher id number as argument here
     """
     SELECT
         teachers.id,
@@ -204,8 +204,8 @@ def select_08(teacher_id=3):  # сюди аргументом передати i
     return result
 
 
-def select_09(student_id=1):  # сюди аргументом передати id студента
-    # Знайти список курсів, які відвідує певний студент.
+# Find the list of courses attended by a specific student.
+def select_09(student_id=1):  # pass the desired student id number as argument here
     """
         SELECT
         students.id,
@@ -234,8 +234,8 @@ def select_09(student_id=1):  # сюди аргументом передати i
     return result
 
 
-def select_10(student_id=1, teacher_id=2):  # сюди аргументом передати id студента та id викладача
-    # Список курсів, які певному студенту читає певний викладач.
+# List of courses taught by a specific teacher to a specific student.
+def select_10(student_id=1, teacher_id=2):  # pass the desired student and teacher ids as arguments here
     """
     SELECT DISTINCT
         students.id,
@@ -275,5 +275,5 @@ if __name__ == '__main__':
     print(select_06(1))
     print(select_07(1, 3))
     print(select_08(3))
-    print(select_09(1))
-    print(select_10(24, 2))
+    print(select_09(3))
+    print(select_10(14, 2))

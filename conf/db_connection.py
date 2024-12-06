@@ -1,32 +1,32 @@
-import configparser
+import os
 import pathlib
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from conf.models import Base
+from dotenv import load_dotenv
 
-# Шлях до файлу конфігурації
-file_config = pathlib.Path(__file__).parent.parent.joinpath('config.ini')
-config = configparser.ConfigParser()
-config.read(file_config)
+# Path to .env file
+env_path = pathlib.Path(__file__).parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
-# Отримання параметрів підключення до бази даних з конфігурації
-user = config.get('DEV_DB', 'USER')
-password = config.get('DEV_DB', 'PASSWORD')
-domain = config.get('DEV_DB', 'DOMAIN')
-port = config.get('DEV_DB', 'PORT')
-db = config.get('DEV_DB', 'DB_NAME')
+# Getting database connection parameters from configuration
+user = os.getenv('DB_USER')
+password = os.getenv('DB_PASS')
+db = os.getenv('DB_NAME')
+domain = os.getenv('DB_HOST')
+port = os.getenv('DB_PORT')
 
-# Створення URI для підключення до бази даних
+# Creating URL for database connection
 URI = f"postgresql://{user}:{password}@{domain}:{port}/{db}"
 
-# Створення двигуна бази даних
+# Creating database engine
 engine = create_engine(URI, echo=False, pool_size=5, max_overflow=0)
 
-# Виклик методу create_all() для створення таблиць
+# Calling create_all() for creating tables
 Base.metadata.create_all(engine)
 
-# Створення фабрики сесій
+# Creating session
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+# print(URI)

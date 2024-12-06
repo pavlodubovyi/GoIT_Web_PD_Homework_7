@@ -23,6 +23,11 @@ class Student(Base):
     group_id = Column('group_id', ForeignKey('groups.id', ondelete='CASCADE'))
     group = relationship('Group', backref='students')
 
+    # adding group name property for easier access
+    @property
+    def group_name(self):
+        return self.group.name if self.group else None
+
 
 class Subject(Base):
     __tablename__ = 'subjects'
